@@ -24,4 +24,4 @@ const Meetschema = new mongoose.Schema({
     dosen : { type : Number, default : null}
 })
 
-export default mongoose.model<IMeet>('Meet', Meetschema)
+export default mongoose.model<IMeet>('Tugas', Meetschema)
