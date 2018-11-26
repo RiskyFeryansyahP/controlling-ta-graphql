@@ -2,7 +2,7 @@ import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLList } 
 import { Types } from 'mongoose'
 
 
-import { MahasiswaType, UserType, DosenType, Profile, ProfileType, TugasType } from '../schema/Schema'
+import { MahasiswaType, UserType, DosenType, Profile, ProfileType, TugasType, DetailTugas } from '../schema/Schema'
 
 // Import database no-sql
 import Mahasiswa from '../../model/MahasiswaSchema'
@@ -76,20 +76,22 @@ export const Mutation = new GraphQLObjectType({
             }
         },
         addTugasMahasiswa : {
-            type : TugasType,
+            type : new GraphQLList(DetailTugas),
             args : {
+                id : { type : GraphQLString },
                 judul : { type : GraphQLString },
                 keterangan : { type : GraphQLString }
             },
             resolve(parent, args)
             {
+                const id : Types.ObjectId = Types.ObjectId()
                 const tugas = new Tugas({
-                    id : Types.ObjectId(),
+                    _id : id,
                     judul : args.judul,
                     keterangan : args.keterangan
                 })
-                
-                return tugas.save()
+
+                return [Mahasiswa.findOneAndUpdate({ _id : args.id }, { tugas : id }), tugas.save()]
             }
         }
     }
