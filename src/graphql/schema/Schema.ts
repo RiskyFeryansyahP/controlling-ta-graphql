@@ -6,6 +6,9 @@ import Mahasiswa from '../../model/MahasiswaSchema'
 import Dosen from '../../model/DosenSchema'
 import TugasSchema from '../../model/TugasSchema';
 
+// Import Resolver Types
+import { resolveType2, resolveTypeTugasMahasiswa } from '../ResolverTypes/types'
+
 export const data = [
     { username : 'catherine', id : '1' },
     { director : 'catherine hardwicke', id : '2' },
@@ -27,11 +30,11 @@ export const MahasiswaType = new GraphQLObjectType({
             }
         },
         tugas : {
-            type : new GraphQLList(TugasType),
+            type : TugasType,
             resolve(parent, args)
             {
                 // return tugas.find(tugas => tugas.id === parent.tugasId)
-                return TugasSchema.find({ _id : parent.tugas})
+                return TugasSchema.findOne({ _id : parent.tugas})
             }
         },
         meet : {
@@ -191,19 +194,6 @@ export const SearchableType = new GraphQLUnionType({
     resolveType : resolveType
 })
 
-const resolveType2 = (data) => {
-    console.log("data", data)
-    if(data.college)
-    {
-        return MahasiswaType
-    }
-
-    if(data.code)
-    {
-        return DosenType
-    }
-}
-
 /**
  * uniontype berfungsi untuk mengambil jika kita ingin menampilkan 2 types yang berbeda
  */
@@ -212,4 +202,10 @@ export const Profile = new GraphQLUnionType({
     name : 'Profile',
     types : [MahasiswaType, DosenType],
     resolveType : resolveType2
+})
+
+export const DetailTugas = new GraphQLUnionType({
+    name : 'DetailTugas',
+    types : [MahasiswaType, TugasType],
+    resolveType : resolveTypeTugasMahasiswa
 })
