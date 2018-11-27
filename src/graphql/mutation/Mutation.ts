@@ -2,13 +2,14 @@ import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLList } 
 import { Types } from 'mongoose'
 
 
-import { MahasiswaType, UserType, DosenType, Profile, ProfileType, TugasType, DetailTugas } from '../schema/Schema'
+import { MahasiswaType, UserType, DosenType, Profile, ProfileType, TugasType, DetailTugas, MeetType } from '../schema/Schema'
 
 // Import database no-sql
 import Mahasiswa from '../../model/MahasiswaSchema'
 import User from '../../model/UserSchema'
 import Dosen from '../../model/DosenSchema'
 import Tugas from '../../model/TugasSchema'
+import Meet from '../../model/MeetSchema'
 
 export const Mutation = new GraphQLObjectType({
     name : 'mutation',
@@ -92,6 +93,47 @@ export const Mutation = new GraphQLObjectType({
                 })
 
                 return [Mahasiswa.findOneAndUpdate({ _id : args.id }, { tugas : id }), tugas.save()]
+            }
+        },
+        mahasiswaAddMeetWithDosen : {
+            type : MeetType,
+            args : {
+                id_mahasiswa : { type : GraphQLString },
+                id_dosen : { type : GraphQLString },
+                jam_awal : { type : GraphQLString },
+                jam_akhir : { type : GraphQLString },
+                keterangan : { type : GraphQLString }
+            },
+            resolve(parent, args)
+            {
+                const meet = new Meet({
+                    _id : Types.ObjectId(),
+                    jam_awal : args.jam_awal,
+                    jam_akhir : args.jam_akhir,
+                    keterangan : args.keterangan,
+                    mahasiswa : args.id_mahasiswa,
+                    dosen : args.id_dosen,
+                })
+
+                return meet.save()
+            }
+        },
+        dosenResponseMeet : {
+            type : MeetType,
+            args : {
+                answer : { type : GraphQLString },
+                id_meet : { type : GraphQLID }
+            },
+            resolve(parent, args)
+            {
+                if(args.answer == 'Accept')
+                {
+                    return Meet.findOneAndUpdate({ _id : args.id_meet }, { status : 'Diterima' })
+                }
+                else
+                {
+                    return Meet.findOneAndUpdate({ _id : args.id_meet }, { status : 'Ditolak' })
+                }
             }
         }
     }
