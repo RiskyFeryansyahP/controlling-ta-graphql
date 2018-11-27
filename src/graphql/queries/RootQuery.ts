@@ -7,13 +7,15 @@ import {
     UserType, 
     SearchableType, 
     data, 
-    TugasType
+    TugasType,
+    MeetType
 } from '../schema/Schema'
 
 // import database no-sql
 import User from '../../model/UserSchema'
 import Mahasiswa from '../../model/MahasiswaSchema'
 import Dosen from '../../model/DosenSchema'
+import Meet from '../../model/MeetSchema'
 
 
 export const RootQuery = new GraphQLObjectType({
@@ -61,10 +63,17 @@ export const RootQuery = new GraphQLObjectType({
             }
         },
         users : {
-            type : GraphQLList(UserType),
+            type : new GraphQLList(UserType),
             resolve(parent, args)
             {
                 return User.find({})
+            }
+        },
+        meets : {
+            type : new GraphQLList(MeetType),
+            resolve(parent, args)
+            {
+                return Meet.find({})
             }
         },
         search : {
