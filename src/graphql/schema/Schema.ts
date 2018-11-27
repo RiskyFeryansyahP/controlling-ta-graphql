@@ -4,7 +4,8 @@ import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLList, G
 // Import database no-sql
 import Mahasiswa from '../../model/MahasiswaSchema'
 import Dosen from '../../model/DosenSchema'
-import TugasSchema from '../../model/TugasSchema';
+import Tugas from '../../model/TugasSchema';
+import Meet from '../../model/MeetSchema';
 
 // Import Resolver Types
 import { resolveType2, resolveTypeTugasMahasiswa } from '../ResolverTypes/types'
@@ -34,14 +35,24 @@ export const MahasiswaType = new GraphQLObjectType({
             resolve(parent, args)
             {
                 // return tugas.find(tugas => tugas.id === parent.tugasId)
-                return TugasSchema.findOne({ _id : parent.tugas})
+                return Tugas.findOne({ _id : parent.tugas})
             }
         },
         meet : {
-            type : MeetType,
+            type : new GraphQLList(MeetType),
+            args : { 
+                status : { type : GraphQLString }
+            },
             resolve(parent, args)
             {
-                
+                if(args.status)
+                {
+                    return Meet.find ({ mahasiswa : parent.id, status : args.status })
+                }
+                else
+                {
+                    return Meet.find({ mahasiswa : parent.id })
+                }
             }
         }
     })
@@ -139,7 +150,14 @@ export const MeetType = new GraphQLObjectType({
             type : MahasiswaType,
             resolve(parent, args)
             {
-                
+                return Mahasiswa.findOne({ _id : parent.mahasiswa })
+            }
+        },
+        dosen : {
+            type : DosenType,
+            resolve(parent, args)
+            {
+                return Dosen.findOne({ _id : parent.dosen })
             }
         }
     })
