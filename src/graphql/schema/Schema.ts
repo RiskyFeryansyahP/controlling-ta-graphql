@@ -64,7 +64,7 @@ export const DosenType = new GraphQLObjectType({
         id : { type : GraphQLID },
         firstName : { type : GraphQLString },
         lastName : { type : GraphQLString },
-        code : { type : GraphQLInt },
+        code : { type : GraphQLString },
         mahasiswa : {
             type : GraphQLList(MahasiswaType),
             resolve(parent, args)
