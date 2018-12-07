@@ -54,12 +54,23 @@ export const Mutation = new GraphQLObjectType({
                         _id : id,
                         firstName : args.firstName,
                         lastName : args.lastName,
-                        code : 123
+                        code : Math.random().toString(36).substring(7)
                     })
 
                     dosen.save()
                     return user.save()
                 }
+            }
+        },
+        userLogin : {
+            type : UserType,
+            args : {
+                username : { type : GraphQLString },
+                password : { type : GraphQLString }
+            },
+            resolve(parent, args)
+            {
+                return User.findOne({ username : args.username, password : args.password })
             }
         },
         addDosenToMahasiswa : {
