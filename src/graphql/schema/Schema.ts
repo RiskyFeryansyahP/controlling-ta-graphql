@@ -19,7 +19,7 @@ export const data = [
 export const MahasiswaType = new GraphQLObjectType({
     name : 'mahasiswa',
     fields : () => ({
-        id : { type : GraphQLID },
+        id : { type : GraphQLString },
         firstName : { type : GraphQLString },
         lastName : { type : GraphQLString },
         college : { type : GraphQLString },
@@ -61,7 +61,7 @@ export const MahasiswaType = new GraphQLObjectType({
 export const DosenType = new GraphQLObjectType({
     name : 'dosen',
     fields : () => ({
-        id : { type : GraphQLID },
+        id : { type : GraphQLString },
         firstName : { type : GraphQLString },
         lastName : { type : GraphQLString },
         code : { type : GraphQLString },
