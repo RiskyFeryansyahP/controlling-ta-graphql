@@ -76,8 +76,8 @@ export const Mutation = new GraphQLObjectType({
         addDosenToMahasiswa : {
             type : new GraphQLList(Profile),
             args : {
-                id : { type : GraphQLID },
-                code : { type : GraphQLInt }
+                id : { type : GraphQLString },
+                code : { type : GraphQLString }
             },
             resolve(parent, args)
             {
