@@ -5,7 +5,7 @@ interface IMahasiswa extends mongoose.Document {
     firstName : string
     lastName : string
     college : string
-    dosen_code : number
+    dosen_code : string
     tugas : string
     meet : string
 }
@@ -15,7 +15,7 @@ const MahasiswaSchema = new mongoose.Schema({
     firstName : { type : String, required : true },
     lastName : { type : String, required : true },
     college : { type : String, required : true },
-    dosen_code : { type : Number, default : null },
+    dosen_code : { type : String, default : null },
     tugas : { type : String, default : '' },
     meet : { type : String, default : '' }
 })
