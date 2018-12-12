@@ -38,7 +38,7 @@ export const RootQuery = new GraphQLObjectType({
         },
         mahasiswa : {
             type : MahasiswaType,
-            args : { id : { type : GraphQLID } },
+            args : { id : { type : GraphQLString } },
             resolve(parent, args)
             {
                 // return mahasiswas.find(mahasiswa => mahasiswa.id === args.id)
