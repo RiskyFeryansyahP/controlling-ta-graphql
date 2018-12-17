@@ -21,7 +21,6 @@ const Meetschema = new mongoose.Schema({
     bab3 : { type : String, default : '' },
     bab4 : { type : String, default : '' },
     bab5 : { type : String, default : '' },
-    dosen : { type : Number, default : null}
 })
 
 export default mongoose.model<IMeet>('Tugas', Meetschema)
