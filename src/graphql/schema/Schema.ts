@@ -79,7 +79,7 @@ export const DosenType = new GraphQLObjectType({
 export const TugasType = new GraphQLObjectType({
     name : 'tugas',
     fields : () => ({
-        id : { type : GraphQLID },
+        id : { type : GraphQLString },
         judul : { type : GraphQLString },
         keterangan : { type : GraphQLString },
         bab1 : { type : GraphQLString },
