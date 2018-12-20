@@ -76,6 +76,16 @@ export const RootQuery = new GraphQLObjectType({
                 return Meet.find({})
             }
         },
+        meetDosen : {
+            type : new GraphQLList(MeetType),
+            args : {
+                id_mahasiswa : { type : GraphQLString }
+            },
+            resolve(parent, args)
+            {
+               return Meet.find({ mahasiswa : args.id_mahasiswa })
+            }
+        },
         search : {
             type : new GraphQLList(SearchableType),
             // args : {
