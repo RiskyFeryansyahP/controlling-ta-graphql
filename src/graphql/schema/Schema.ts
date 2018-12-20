@@ -139,7 +139,7 @@ export const ProfileType = new GraphQLUnionType({
 })
 
 export const MeetType = new GraphQLObjectType({
-    name : 'type',
+    name : 'meet',
     fields : () => ({
         id : { type : GraphQLID },
         jam_awal : { type : GraphQLString },
@@ -157,7 +157,7 @@ export const MeetType = new GraphQLObjectType({
             type : DosenType,
             resolve(parent, args)
             {
-                return Dosen.findOne({ _id : parent.dosen })
+                return Dosen.findOne({ code : parent.dosen })
             }
         }
     })
