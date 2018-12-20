@@ -110,7 +110,7 @@ export const Mutation = new GraphQLObjectType({
             type : MeetType,
             args : {
                 id_mahasiswa : { type : GraphQLString },
-                id_dosen : { type : GraphQLString },
+                dosen_code : { type : GraphQLString },
                 jam_awal : { type : GraphQLString },
                 jam_akhir : { type : GraphQLString },
                 keterangan : { type : GraphQLString }
@@ -123,7 +123,7 @@ export const Mutation = new GraphQLObjectType({
                     jam_akhir : args.jam_akhir,
                     keterangan : args.keterangan,
                     mahasiswa : args.id_mahasiswa,
-                    dosen : args.id_dosen,
+                    dosen : args.dosen_code,
                 })
 
                 return meet.save()
