@@ -97,7 +97,7 @@ export const RootQuery = new GraphQLObjectType({
                 return data.filter((d) => {
                     // const searchableProperty = d.username || d.director || d.author
                     // console.log(searchableProperty == 'catherine')
-                    // return searchableProperty.indexOf(text) !== -1
+                    // return searchablePdroperty.indexOf(text) !== -1
                     return d.username == 'catherine'
                 })
             }
