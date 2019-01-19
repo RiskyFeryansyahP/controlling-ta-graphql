@@ -92,7 +92,9 @@ export const Mutation = new GraphQLObjectType({
             args : {
                 id : { type : GraphQLString },
                 judul : { type : GraphQLString },
-                keterangan : { type : GraphQLString }
+                keterangan : { type : GraphQLString },
+                seminar1 : { type : GraphQLString },
+                seminar2 : { type : GraphQLString }
             },
             resolve(parent, args)
             {
@@ -100,7 +102,9 @@ export const Mutation = new GraphQLObjectType({
                 const tugas = new Tugas({
                     _id : id,
                     judul : args.judul,
-                    keterangan : args.keterangan
+                    keterangan : args.keterangan,
+                    seminar1 : args.seminar1,
+                    seminar2 : args.seminar2
                 })
 
                 return [Mahasiswa.findOneAndUpdate({ _id : args.id }, { tugas : id }), tugas.save()]
@@ -113,6 +117,7 @@ export const Mutation = new GraphQLObjectType({
                 dosen_code : { type : GraphQLString },
                 jam_awal : { type : GraphQLString },
                 jam_akhir : { type : GraphQLString },
+                tgl : { type : GraphQLString },
                 keterangan : { type : GraphQLString }
             },
             resolve(parent, args)
@@ -121,6 +126,7 @@ export const Mutation = new GraphQLObjectType({
                     _id : Types.ObjectId(),
                     jam_awal : args.jam_awal,
                     jam_akhir : args.jam_akhir,
+                    tgl : args.tgl,
                     keterangan : args.keterangan,
                     mahasiswa : args.id_mahasiswa,
                     dosen : args.dosen_code,
