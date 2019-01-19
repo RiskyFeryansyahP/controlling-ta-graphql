@@ -144,6 +144,7 @@ export const MeetType = new GraphQLObjectType({
         id : { type : GraphQLID },
         jam_awal : { type : GraphQLString },
         jam_akhir : { type : GraphQLString },
+        tgl : { type : GraphQLString },
         keterangan : { type : GraphQLString },
         status : { type : GraphQLString },
         mahasiswa : {
