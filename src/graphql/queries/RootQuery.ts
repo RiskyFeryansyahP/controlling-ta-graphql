@@ -16,7 +16,7 @@ import User from '../../model/UserSchema'
 import Mahasiswa from '../../model/MahasiswaSchema'
 import Dosen from '../../model/DosenSchema'
 import Meet from '../../model/MeetSchema'
-
+import Tugas from '../../model/TugasSchema'
 
 export const RootQuery = new GraphQLObjectType({
     name : 'RootQueryType',
@@ -100,6 +100,16 @@ export const RootQuery = new GraphQLObjectType({
                     // return searchablePdroperty.indexOf(text) !== -1
                     return d.username == 'catherine'
                 })
+            }
+        },
+        findTugas : {
+            type : new GraphQLList(TugasType),
+            args : {
+                judul : { type : GraphQLString }
+            },
+            resolve(parent, args)
+            {
+                return Tugas.find({ judul : args.judul })
             }
         }
     }
